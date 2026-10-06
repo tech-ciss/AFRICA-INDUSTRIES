@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,22 +10,9 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])
 ->prefix('admin')
+->name('admin.')
 ->group(function () {
-    Route::get('/dashboard', function () {
-        return 'admin dashboard';
-    });
-
-    Route::get('/users', function () {
-        return 'gestion des utilisateurs';
-    });
-
-    Route::get('/categories', function () {
-        return 'gestion des categories';
-    });
-
-    Route::get('/statistics', function () {
-        return 'statistiques';
-    });
+    Route::resource('categories', CategoryController::class);
 });
 
 //teste
